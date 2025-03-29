@@ -6,15 +6,22 @@ from google.oauth2.service_account import Credentials
 from googleapiclient.errors import HttpError
 
 def authenticate_google_drive():
-    """Authenticate with Google Drive API using service account credentials."""
-    # The credentials are automatically provided by the google-github-actions/auth action
-    creds = Credentials.from_service_account_info(
-        info=None,  # Uses the credentials provided by the google-github-actions/auth action
-        scopes=['https://www.googleapis.com/auth/drive']
-    )
-    service = build('drive', 'v3', credentials=creds)
-    return service
-
+    try:
+        creds_file = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
+        if not creds_file:
+            raise ValueError("GOOGLE_APPLICATION_CREDENTIALS environment variable is not set")
+        
+        print(f"Attempting to load credentials from: {creds_file}")
+        creds = Credentials.from_authorized_user_file(creds_file, ['https://www.googleapis.com/auth/drive'])
+        
+        print("Credentials loaded successfully")
+        service = build('drive', 'v3', credentials=creds)
+        return service
+    except Exception as e:
+        print(f"Error in authenticate_google_drive: {str(e)}")
+        traceback.print_exc()
+        return None
+        
 def upload_file(service, file_path, parent_folder_id, mime_type=None):
     """Upload a file to Google Drive."""
     file_name = os.path.basename(file_path)
@@ -126,22 +133,30 @@ def sync_folder_to_drive(service, local_folder_path, parent_folder_id):
                 print(f"Error deleting file {drive_file['name']}: {error}")
 
 def main():
-    """Main function to sync a local folder to Google Drive."""
-    folder_path = os.environ.get('FOLDER_PATH')
-    drive_folder_id = os.environ.get('GOOGLE_DRIVE_FOLDER_ID')
-    
-    if not folder_path or not drive_folder_id:
-        print("Missing required environment variables: FOLDER_PATH or GOOGLE_DRIVE_FOLDER_ID")
-        sys.exit(1)
-    
     try:
+        print("Starting main function")
         service = authenticate_google_drive()
-        print(f"Syncing folder {folder_path} to Google Drive folder ID: {drive_folder_id}")
-        sync_folder_to_drive(service, folder_path, drive_folder_id)
+        if service is None:
+            raise ValueError("Failed to authenticate with Google Drive")
+        
+        folder_path = os.environ.get('FOLDER_PATH')
+        drive_folder_id = os.environ.get('GOOGLE_DRIVE_FOLDER_ID')
+        
+        print(f"Folder path: {folder_path}")
+        print(f"Drive folder ID: {drive_folder_id}")
+        
+        if not folder_path or not drive_folder_id:
+            raise ValueError("FOLDER_PATH or GOOGLE_DRIVE_FOLDER_ID environment variables are not set")
+        
+        # Your sync_folder_to_drive function call here
+        # sync_folder_to_drive(service, folder_path, drive_folder_id)
+        
         print("Sync completed successfully!")
     except Exception as e:
         print(f"Error during sync: {str(e)}")
+        traceback.print_exc()
         sys.exit(1)
-
+        
 if __name__ == "__main__":
     main()
+    
