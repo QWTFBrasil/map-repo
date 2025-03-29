@@ -1,8 +1,9 @@
 name: Upload Files to Google Drive
-on:
+on: 
   push:
     branches:
       - master
+  workflow_dispatch:
 jobs:
   deploy:
     runs-on: ubuntu-latest
