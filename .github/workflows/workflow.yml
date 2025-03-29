@@ -45,8 +45,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y cron curl zip
-          pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
-      
+          pip install --upgrade google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client
+          
       - name: Grab AWS JS S3 explorer
         run: |
           curl -O https://raw.githubusercontent.com/FortressOne/aws-js-s3-explorer/master/index.html
