@@ -16,7 +16,12 @@ jobs:
           remove-haskell: 'true'
           remove-codeql: 'true'
           remove-docker-images: 'true'
-      
+
+      - name: Debug environment variables
+        run: |
+          echo "FOLDER_PATH: $FOLDER_PATH"
+          echo "GOOGLE_DRIVE_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}"
+          echo "GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}"
       - name: Checkout
         uses: actions/checkout@v3
         with:
