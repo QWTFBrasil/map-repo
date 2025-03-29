@@ -1,4 +1,4 @@
-name: Upload Files
+name: Upload Files to Google Drive
 on:
   push:
     branches:
@@ -15,39 +15,52 @@ jobs:
           remove-haskell: 'true'
           remove-codeql: 'true'
           remove-docker-images: 'true'
-
+      
       - name: Checkout
         uses: actions/checkout@v3
         with:
           lfs: 'true'
-
+      
+      # Restore the hash file from cache if it exists
+      - name: Restore hash file cache
+        uses: actions/cache@v3
+        with:
+          path: .drive_sync_hashes.json
+          key: ${{ runner.os }}-drive-sync-hashes-${{ github.run_id }}
+          restore-keys: |
+            ${{ runner.os }}-drive-sync-hashes-
+      
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.8'
-
+      
       - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y cron curl zip
-          curl -O https://bootstrap.pypa.io/get-pip.py
-          python3 get-pip.py
-          pip3 install awscli --upgrade
-
+          pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
+      
       - name: Grab AWS JS S3 explorer
         run: |
           curl -O https://raw.githubusercontent.com/FortressOne/aws-js-s3-explorer/master/index.html
           mv index.html fortress/maps/
-
-      - name: Package into packaged bsps and upload to S3
+      
+      - name: Package BSPs
         run: |
           for package_path in fortress/package/*; do
             ./package_bsps.sh ${package_path}
             rm -rf ${package_path}
           done
-          pwd
-          /usr/local/bin/aws s3 sync --size-only fortress/maps ${{ secrets.AWS_S3_PACKAGE_BUCKET }} --delete --region ap-southeast-2 --debug
+      
+      - name: Authenticate to Google Drive
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GOOGLE_DRIVE_CREDENTIALS }}
+      
+      - name: Upload to Google Drive
+        run: |
+          python upload_to_drive.py
         env:
-          AWS_S3_PACKAGE_BUCKET: ${{ secrets.AWS_S3_PACKAGE_BUCKET }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          FOLDER_PATH: 'fortress/maps'
+          GOOGLE_DRIVE_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}
