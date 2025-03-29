@@ -4,6 +4,9 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 from google.oauth2.service_account import Credentials
 from googleapiclient.errors import HttpError
+import traceback
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
 
 def authenticate_google_drive():
     try:
@@ -12,7 +15,10 @@ def authenticate_google_drive():
             raise ValueError("GOOGLE_APPLICATION_CREDENTIALS environment variable is not set")
         
         print(f"Attempting to load credentials from: {creds_file}")
-        creds = Credentials.from_authorized_user_file(creds_file, ['https://www.googleapis.com/auth/drive'])
+        creds = service_account.Credentials.from_service_account_file(
+            creds_file, 
+            scopes=['https://www.googleapis.com/auth/drive']
+        )
         
         print("Credentials loaded successfully")
         service = build('drive', 'v3', credentials=creds)
@@ -21,6 +27,7 @@ def authenticate_google_drive():
         print(f"Error in authenticate_google_drive: {str(e)}")
         traceback.print_exc()
         return None
+        
         
 def upload_file(service, file_path, parent_folder_id, mime_type=None):
     """Upload a file to Google Drive."""
@@ -135,6 +142,9 @@ def sync_folder_to_drive(service, local_folder_path, parent_folder_id):
 def main():
     try:
         print("Starting main function")
+        print(f"Current working directory: {os.getcwd()}")
+        print(f"Contents of current directory: {os.listdir('.')}")
+        
         service = authenticate_google_drive()
         if service is None:
             raise ValueError("Failed to authenticate with Google Drive")
@@ -156,7 +166,7 @@ def main():
         print(f"Error during sync: {str(e)}")
         traceback.print_exc()
         sys.exit(1)
-        
+
 if __name__ == "__main__":
     main()
     
