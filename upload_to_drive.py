@@ -139,34 +139,38 @@ def sync_folder_to_drive(service, local_folder_path, parent_folder_id):
             except HttpError as error:
                 print(f"Error deleting file {drive_file['name']}: {error}")
 
+def list_files_to_upload(folder_path):
+    print(f"Listing files in folder: {folder_path}")
+    file_count = 0
+    for root, dirs, files in os.walk(folder_path):
+        for file in files:
+            if file.endswith('.bsp'):
+                file_path = os.path.join(root, file)
+                print(f"File to be uploaded: {file_path}")
+                file_count += 1
+    print(f"Total files to be uploaded: {file_count}")
+
 def main():
     try:
-        print("Starting main function")
-        print(f"Current working directory: {os.getcwd()}")
-        print(f"Contents of current directory: {os.listdir('.')}")
-        
+        # Autenticação (mantida para verificar se as credenciais estão funcionando)
         service = authenticate_google_drive()
         if service is None:
             raise ValueError("Failed to authenticate with Google Drive")
         
         folder_path = os.environ.get('FOLDER_PATH')
-        drive_folder_id = os.environ.get('GOOGLE_DRIVE_FOLDER_ID')
+        if not folder_path:
+            raise ValueError("FOLDER_PATH environment variable is not set")
         
         print(f"Folder path: {folder_path}")
-        print(f"Drive folder ID: {drive_folder_id}")
         
-        if not folder_path or not drive_folder_id:
-            raise ValueError("FOLDER_PATH or GOOGLE_DRIVE_FOLDER_ID environment variables are not set")
+        # Lista os arquivos que seriam enviados
+        list_files_to_upload(folder_path)
         
-        # Your sync_folder_to_drive function call here
-        # sync_folder_to_drive(service, folder_path, drive_folder_id)
-        
-        print("Sync completed successfully!")
+        print("Listing completed successfully!")
     except Exception as e:
-        print(f"Error during sync: {str(e)}")
+        print(f"Error during listing: {str(e)}")
         traceback.print_exc()
         sys.exit(1)
 
 if __name__ == "__main__":
     main()
-    
