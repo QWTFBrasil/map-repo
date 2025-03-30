@@ -271,7 +271,7 @@ def sync_folder_to_drive(service, local_folder_path, parent_folder_id):
 def main():
     """Main function to sync a local folder to Google Drive."""
     folder_path = os.environ.get('FOLDER_PATH')
-    drive_folder_id = os.environ.get('GOOGLE_DRIVE_FOLDER_ID', "13tnISDHDOI3ElTClWym_u4mbHhDpxqPF")
+    drive_folder_id = os.environ.get('GOOGLE_DRIVE_FOLDER_ID')
     
     # Print config info
     print("==== Google Drive Sync Tool ====")
