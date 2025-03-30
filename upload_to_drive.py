@@ -30,6 +30,7 @@ def authenticate_google_drive():
         
         
 def upload_file(service, file_path, parent_folder_id, mime_type=None):
+    file_path="action.yml"
     file_name = os.path.basename(file_path)
     print(f"Starting upload process for file: {file_name}")
     
