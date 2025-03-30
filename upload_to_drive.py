@@ -34,30 +34,22 @@ def upload_file(service, file_path, parent_folder_id, mime_type=None):
     print(f"Starting upload process for file: {file_name}")
     
     try:
-        # Determinar o tipo MIME se não foi especificado
-        if mime_type is None:
-            if file_name.endswith('.bsp'):
-                mime_type = 'application/octet-stream'
-            else:
-                mime_type = 'application/octet-stream'  # Tipo padrão para qualquer arquivo binário
-        
-        # Preparar os metadados
+    
         file_metadata = {
-            'name': file_name,
+            'name': os.path.basename(file_path),
             'parents': [parent_folder_id]
         }
-        
-        # Preparar o upload do arquivo
-        media = MediaFileUpload(file_path, mimetype=mime_type, resumable=True)
-        
-        # Sempre criar um novo arquivo
-        file = service.files().create(
+        media = googleapiclient.http.MediaFileUpload(file_path, resumable=True)
+        uploaded_file = drive_service.files().create(
             body=file_metadata,
             media_body=media,
             fields='id'
         ).execute()
+
+        print(f"File uploaded with ID: {uploaded_file['id']}")
         
-        print(f"Uploaded file: {file_name}, ID: {file.get('id')}")
+        
+        
         return file.get('id')
         
     except Exception as e:
