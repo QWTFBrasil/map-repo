@@ -18,7 +18,6 @@ jobs:
           remove-docker-images: 'true'
 
       - name: Clear hash file if force update requested
-        if: github.event.inputs.force_update == 'yes'
         run: |
           rm -f .drive_sync_hashes.json
           echo "Forcing update of all files"
