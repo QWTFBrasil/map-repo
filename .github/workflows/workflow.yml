@@ -81,4 +81,4 @@ jobs:
           python upload_to_drive.py
         env:
           FOLDER_PATH: 'fortress/maps'
-          GOOGLE_DRIVE_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}
+          GOOGLE_DRIVE_FOLDER_ID: '13tnISDHDOI3ElTClWym_u4mbHhDpxqPF'
