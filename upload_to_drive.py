@@ -187,9 +187,9 @@ def main():
         print(f"GOOGLE_DRIVE_CREDENTIALS: {'Set' if os.environ.get('GOOGLE_DRIVE_CREDENTIALS') else 'Not set'}")
         
         service = authenticate_google_drive()
-        print(f"Authentication successful! Syncing folder {folder_path} to Google Drive folder ID: 13tnISDHDOI3ElTClWym_u4mbHhDpxqPF")
+        print(f"Authentication successful! Syncing folder {folder_path} to Google Drive folder ID: abuff")
         list_files_to_upload(folder_path)
-        sync_folder_to_drive(service, folder_path, "13tnISDHDOI3ElTClWym_u4mbHhDpxqPF")
+        sync_folder_to_drive(service, folder_path, "abuff")
         print("Sync completed successfully!")        
         print("Listing completed successfully!")
     except Exception as e:
