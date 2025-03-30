@@ -115,12 +115,14 @@ def sync_folder_to_drive(service, local_folder_path, parent_folder_id):
     query = f"'{parent_folder_id}' in parents and trashed=false"
     results = service.files().list(q=query, fields="files(id, name, mimeType)").execute()
     drive_files = {file['name']: file for file in results.get('files', [])}
-    
+    print("Starting sync")
     # Track local files for deletion check
     local_files = set()
     
     # Walk through local directory
+    count2 = 0
     for root, dirs, files in os.walk(local_folder_path):
+        print(count2)
         # Calculate relative path from the base folder
         rel_path = os.path.relpath(root, local_folder_path)
         current_parent_id = parent_folder_id
@@ -163,7 +165,7 @@ def list_files_to_upload(folder_path):
         for file in files:
             if file.endswith('.bsp'):
                 file_path = os.path.join(root, file)
-                print(f"File to be uploaded: {file_path}")
+                #print(f"File to be uploaded: {file_path}")
                 file_count += 1
     print(f"Total files to be uploaded: {file_count}")
 
