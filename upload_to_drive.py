@@ -172,7 +172,7 @@ def list_files_to_upload(folder_path):
 def main():
     """Main function to sync a local folder to Google Drive."""
     folder_path = os.environ.get('FOLDER_PATH')
-    drive_folder_id = os.environ.get('GOOGLE_DRIVE_FOLDER_ID')
+    drive_folder_id = '13tnISDHDOI3ElTClWym_u4mbHhDpxqPF'
     
     if not folder_path or not drive_folder_id:
         print("Missing required environment variables: FOLDER_PATH or GOOGLE_DRIVE_FOLDER_ID")
