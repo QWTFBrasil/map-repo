@@ -33,8 +33,14 @@ def upload_file(service, file_path, parent_folder_id, mime_type=None):
     """Upload a file to Google Drive."""
     file_name = os.path.basename(file_path)
     
+    print(f"Starting upload process for file: {file_name}")
+    print(f"File path: {file_path}")
+    print(f"Parent folder ID: {parent_folder_id}")
+    print(f"MIME type: {mime_type}")
+
     # Check if file already exists in the folder
     query = f"name='{file_name}' and '{parent_folder_id}' in parents and trashed=false"
+    print(f"Checking if file exists with query: {query}")
     results = service.files().list(q=query, fields="files(id, name)").execute()
     existing_files = results.get('files', [])
     
@@ -42,30 +48,40 @@ def upload_file(service, file_path, parent_folder_id, mime_type=None):
         'name': file_name,
         'parents': [parent_folder_id]
     }
-    
     media = MediaFileUpload(file_path, mimetype=mime_type, resumable=True)
-    
-    if existing_files:
-        # Update existing file
-        file_id = existing_files[0]['id']
-        file = service.files().update(
-            fileId=file_id,
-            body=file_metadata,
-            media_body=media,
-            fields='id'
-        ).execute()
-        print(f"Updated file: {file_name}, ID: {file.get('id')}")
-    else:
-        # Upload new file
-        file = service.files().create(
-            body=file_metadata,
-            media_body=media,
-            fields='id'
-        ).execute()
-        print(f"Uploaded new file: {file_name}, ID: {file.get('id')}")
-    
-    return file.get('id')
 
+    print(f"Preparing to upload file: {file_name}")
+    print(f"File metadata: {file_metadata}")
+
+    try:
+        if existing_files:
+            # Update existing file
+            file_id = existing_files[0]['id']
+            print(f"Updating existing file: {file_name}, ID: {file_id}")
+            file = service.files().update(
+                fileId=file_id,
+                body=file_metadata,
+                media_body=media,
+                fields='id'
+            ).execute()
+            print(f"Updated file: {file_name}, ID: {file.get('id')}")
+        else:
+            # Upload new file
+            print(f"Uploading new file: {file_name}")
+            file = service.files().create(
+                body=file_metadata,
+                media_body=media,
+                fields='id'
+            ).execute()
+            print(f"Uploaded new file: {file_name}, ID: {file.get('id')}")
+        
+        print(f"Upload process completed for file: {file_name}")
+        return file.get('id')
+    except HttpError as error:
+        print(f"An error occurred while uploading {file_name}: {error}")
+        print(f"Error details: {error.content.decode()}")
+        return None
+        
 def create_folder(service, folder_name, parent_folder_id):
     """Create a folder in Google Drive, or get existing folder ID."""
     # Check if folder already exists
