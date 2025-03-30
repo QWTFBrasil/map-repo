@@ -17,17 +17,6 @@ jobs:
           remove-codeql: 'true'
           remove-docker-images: 'true'
 
-      - name: Clear hash file if force update requested
-        run: |
-          rm -f .drive_sync_hashes.json
-          echo "Forcing update of all files"
-
-
-      - name: Debug environment variables
-        run: |
-          echo "FOLDER_PATH: $FOLDER_PATH"
-          echo "GOOGLE_DRIVE_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}"
-          echo "GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}"
       - name: Checkout
         uses: actions/checkout@v3
         with:
@@ -52,11 +41,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y cron curl zip
           pip install --upgrade google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client
-          
-      - name: Grab AWS JS S3 explorer
-        run: |
-          curl -O https://raw.githubusercontent.com/FortressOne/aws-js-s3-explorer/master/index.html
-          mv index.html fortress/maps/
+
       
       - name: Package BSPs
         run: |
@@ -64,12 +49,6 @@ jobs:
             ./package_bsps.sh ${package_path}
             rm -rf ${package_path}
           done
-
-      - name: Debug BSP generation
-        run: |
-          echo "Contents of fortress/maps:"
-          ls -l fortress/maps
-
       
       - name: Authenticate to Google Drive
         uses: google-github-actions/auth@v1
