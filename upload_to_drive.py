@@ -117,6 +117,7 @@ def sync_folder_to_drive(service, local_folder_path, parent_folder_id):
         
         # Upload files in current directory
         for file_name in files:
+            print(f"File: {file_name}")
             local_files.add(os.path.join(rel_path, file_name) if rel_path != '.' else file_name)
             file_path = os.path.join(root, file_name)
             
@@ -164,7 +165,7 @@ def main():
         print(f"Folder path: {folder_path}")
         
         # Lista os arquivos que seriam enviados
-        list_files_to_upload(folder_path)
+        # list_files_to_upload(folder_path)
         
         print("Listing completed successfully!")
     except Exception as e:
