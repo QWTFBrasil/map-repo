@@ -17,7 +17,7 @@ def authenticate_google_drive():
         print(f"Attempting to load credentials from: {creds_file}")
         creds = service_account.Credentials.from_service_account_file(
             creds_file, 
-            scopes=['https://www.googleapis.com/auth/drive']
+            scopes=['https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/drive.file']
         )
         
         print("Credentials loaded successfully")
@@ -39,7 +39,7 @@ def upload_file(service, file_path, parent_folder_id, mime_type=None):
             'name': os.path.basename(file_path),
             'parents': [parent_folder_id]
         }
-        media = MediaFileUpload("/fortress/maps/" + file_path, resumable=True)
+        media = MediaFileUpload(file_path, resumable=True)
         uploaded_file = service.files().create(
             body=file_metadata,
             media_body=media,
