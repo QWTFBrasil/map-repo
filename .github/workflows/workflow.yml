@@ -64,6 +64,12 @@ jobs:
             ./package_bsps.sh ${package_path}
             rm -rf ${package_path}
           done
+
+      - name: Debug BSP generation
+        run: |
+          echo "Contents of fortress/maps:"
+          ls -l fortress/maps
+
       
       - name: Authenticate to Google Drive
         uses: google-github-actions/auth@v1
