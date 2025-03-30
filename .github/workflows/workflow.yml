@@ -17,6 +17,13 @@ jobs:
           remove-codeql: 'true'
           remove-docker-images: 'true'
 
+      - name: Clear hash file if force update requested
+        if: github.event.inputs.force_update == 'yes'
+        run: |
+          rm -f .drive_sync_hashes.json
+          echo "Forcing update of all files"
+
+
       - name: Debug environment variables
         run: |
           echo "FOLDER_PATH: $FOLDER_PATH"
