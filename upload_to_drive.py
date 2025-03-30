@@ -40,7 +40,7 @@ def upload_file(service, file_path, parent_folder_id, mime_type=None):
             'parents': [parent_folder_id]
         }
         media = MediaFileUpload(file_path, resumable=True)
-        uploaded_file = drive_service.files().create(
+        uploaded_file = service.files().create(
             body=file_metadata,
             media_body=media,
             fields='id'
