@@ -33,38 +33,52 @@ def upload_file(service, file_path, parent_folder_id, mime_type=None):
     file_name = os.path.basename(file_path)
     print(f"Starting upload process for file: {file_name}")
 
-    # Check if file already exists in the folder
-    query = f"name='{file_name}' and '{parent_folder_id}' in parents and trashed=false"
     try:
+        # Preparar os metadados e o conteúdo do arquivo
+        file_metadata = {
+            'name': file_name,
+            'parents': [parent_folder_id]
+        }
+        
+        # Determinar o tipo MIME se não foi especificado
+        if mime_type is None:
+            if file_name.endswith('.bsp'):
+                mime_type = 'application/octet-stream'
+            elif file_name.endswith('.html'):
+                mime_type = 'text/html'
+            elif file_name.endswith('.txt'):
+                mime_type = 'text/plain'
+            else:
+                mime_type = 'application/octet-stream'
+        
+        # Verificar se o arquivo existe antes de tentar qualquer operação
+        query = f"name='{file_name}' and '{parent_folder_id}' in parents and trashed=false"
         results = service.files().list(q=query, fields="files(id, name)").execute()
         existing_files = results.get('files', [])
-
-        if existing_files:
-            # File already exists, skip it
-            file_id = existing_files[0]['id']
-            print(f"File already exists: {file_name}, ID: {file_id} - Skipping upload")
-            return file_id
-        else:
-            # File doesn't exist, create new file
-            file_metadata = {
-                'name': file_name,
-                'parents': [parent_folder_id]
-            }
-            media = MediaFileUpload(file_path, mimetype=mime_type, resumable=True)
-            
-            file = service.files().create(
-                body=file_metadata,
-                media_body=media,
-                fields='id'
-            ).execute()
-            print(f"Uploaded new file: {file_name}, ID: {file.get('id')}")
-            return file.get('id')
-            
-    except HttpError as error:
-        print(f"An error occurred while uploading {file_name}: {error}")
-        print(f"Error details: {error.content.decode()}")
-        return None
         
+        # Se o arquivo já existe, pule o upload
+        if existing_files:
+            print(f"File already exists: {file_name} - Skipping upload")
+            return existing_files[0]['id']
+        
+        # Se chegou aqui, o arquivo não existe e podemos fazer o upload normalmente
+        media = MediaFileUpload(file_path, mimetype=mime_type, resumable=True)
+        file = service.files().create(
+            body=file_metadata,
+            media_body=media,
+            fields='id'
+        ).execute()
+        
+        print(f"Successfully uploaded new file: {file_name}, ID: {file.get('id')}")
+        return file.get('id')
+        
+    except Exception as e:
+        print(f"Error in upload_file for {file_name}: {str(e)}")
+        if isinstance(e, HttpError):
+            print(f"HTTP Error details: {e.content.decode()}")
+        else:
+            traceback.print_exc()
+        return None        
 def create_folder(service, folder_name, parent_folder_id):
     """Create a folder in Google Drive, or get existing folder ID."""
     # Check if folder already exists
