@@ -1,2 +1,0 @@
-progs/helo1x5.mdl
-progs/pres.mdl

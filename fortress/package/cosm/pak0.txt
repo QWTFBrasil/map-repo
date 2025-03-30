@@ -1,3 +1,0 @@
-sound/doors/latch2.wav
-progs/invisibl.mdl
-progs/invulner.mdl

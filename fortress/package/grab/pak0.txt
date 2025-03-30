@@ -1,2 +1,0 @@
-sound/weapons/pkup.wav
-sound/knight/sword2.wav

@@ -1,1 +1,0 @@
-sound/misc/sight.wav

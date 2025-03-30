@@ -1,2 +1,0 @@
-sound/items/R_item1.wav
-sound/misc/Chink.wav

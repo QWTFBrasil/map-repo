@@ -1,3 +1,0 @@
-progs/quaddama.mdl
-progs/invisibl.mdl
-progs/invulner.mdl

@@ -1,3 +1,0 @@
-progs/backpack.mdl
-sound/misc/null.wav
-sound/ogre/ogwake.wav

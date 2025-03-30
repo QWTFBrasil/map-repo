@@ -1,2 +1,0 @@
-sound/weapons/sgun1.wav
-progs/backpack.mdl

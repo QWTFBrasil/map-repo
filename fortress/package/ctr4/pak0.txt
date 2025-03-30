@@ -1,2 +1,0 @@
-progs/end1.mdl
-progs/backpack.mdl

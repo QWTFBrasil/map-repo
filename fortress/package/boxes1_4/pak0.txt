@@ -1,4 +1,0 @@
-sound/ogre/ogwake.wav
-sound/doors/meduse.wav
-sound/weapons/pkup.wav
-progs/backpack.mdl

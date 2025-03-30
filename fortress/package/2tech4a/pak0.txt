@@ -1,3 +1,0 @@
-sound/ambience/thunder1.wav
-sound/shambler/ssight.wav
-sound/ogre/ogwake.wav

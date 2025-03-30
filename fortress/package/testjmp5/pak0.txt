@@ -1,3 +1,0 @@
-progs/backpack.mdl
-sound/items/health1.wav
-progs/player.mdl

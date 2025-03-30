@@ -1,3 +1,0 @@
-progs/backpack.mdl
-progs/player.mdl
-progs/soldier.mdl

@@ -1,2 +1,0 @@
-midground2.bsp
-Midground.bsp

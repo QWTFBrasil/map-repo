@@ -1,1 +1,0 @@
-progs/fish.mdl

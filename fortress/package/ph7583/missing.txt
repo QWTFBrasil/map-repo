@@ -1,2 +1,0 @@
-sound/misc/break01.wav
-maps/models/rubble2.bsp

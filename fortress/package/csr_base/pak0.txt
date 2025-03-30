@@ -1,3 +1,0 @@
-sound/items/armor1.wav
-sound/shambler/ssight.wav
-sound/ogre/ogwake.wav

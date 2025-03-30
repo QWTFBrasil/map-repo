@@ -1,3 +1,0 @@
-progs/v_spike.mdl
-progs/end4.mdl
-sound/boss2/idle.wav

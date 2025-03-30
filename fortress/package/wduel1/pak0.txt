@@ -1,3 +1,0 @@
-progs/backpack.mdl
-sound/items/suit.wav
-progs/suit.mdl

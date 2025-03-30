@@ -1,5 +1,0 @@
-progs/backpack.mdl
-sound/doors/medtry.wav
-sound/misc/secret.wav
-sound/doors/runetry.wav
-sound/doors/basetry.wav

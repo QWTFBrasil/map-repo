@@ -1,3 +1,0 @@
-sound/weapons/pkup.wav
-sound/misc/trigger1.wav
-sound/misc/medkey.wav

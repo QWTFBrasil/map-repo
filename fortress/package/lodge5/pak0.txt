@@ -1,4 +1,0 @@
-sound/misc/secret.wav
-sound/weapons/lock4.wav
-progs/backpack.mdl
-sound/ogre/ogwake.wav

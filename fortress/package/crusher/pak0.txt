@@ -1,2 +1,0 @@
-progs/w_s_key.mdl
-progs/w_g_key.mdl

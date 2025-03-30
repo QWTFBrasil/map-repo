@@ -1,2 +1,0 @@
-progs/invulner.mdl
-progs/backpack.mdl

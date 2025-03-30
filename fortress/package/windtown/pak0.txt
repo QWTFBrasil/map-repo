@@ -1,5 +1,0 @@
-progs/m_g_key.mdl
-sound/weapons/lstart.wav
-progs/m_s_key.mdl
-progs/invulner.mdl
-progs/backpack.mdl

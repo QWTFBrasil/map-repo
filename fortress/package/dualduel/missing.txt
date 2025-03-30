@@ -1,2 +1,0 @@
-sound/mtime.wav
-sound/speech/no.wav

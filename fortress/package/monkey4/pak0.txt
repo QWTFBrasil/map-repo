@@ -1,1 +1,0 @@
-progs/flame2.mdl

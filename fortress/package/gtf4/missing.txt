@@ -1,2 +1,0 @@
-chip.mdl
-medpack.mdl

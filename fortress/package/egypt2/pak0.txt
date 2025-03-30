@@ -1,3 +1,0 @@
-sound/demon/sight2.wav
-sound/demon/dpain1.wav
-sound/demon/idle1.wav

@@ -1,4 +1,0 @@
-sound/items/armor1.wav
-progs/backpack.mdl
-sound/items/protect.wav
-sound/boss1/sight1.wav

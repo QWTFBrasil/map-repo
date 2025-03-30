@@ -1,3 +1,0 @@
-progs/eyes.mdl
-progs/lavaball.mdl
-progs/backpack.mdl

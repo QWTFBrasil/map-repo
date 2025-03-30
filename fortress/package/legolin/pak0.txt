@@ -1,2 +1,0 @@
-progs/backpack.mdl
-sound/boss1/out1.wav

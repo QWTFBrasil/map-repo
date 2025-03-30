@@ -1,2 +1,0 @@
-sound/misc/medkey.wav
-progs/backpack.mdl

@@ -1,4 +1,0 @@
-sound/items/protect.wav
-progs/backpack.mdl
-sound/misc/secret.wav
-sound/boss1/pain.wav

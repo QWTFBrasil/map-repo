@@ -1,4 +1,0 @@
-sound/soldier/idle.wav
-progs/soldier.mdl
-sound/misc/secret.wav
-progs/backpack.mdl

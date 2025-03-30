@@ -1,1 +1,0 @@
-sound/weapons/lock4.wav

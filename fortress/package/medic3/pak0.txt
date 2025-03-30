@@ -1,2 +1,0 @@
-sound/items/armor1.wav
-progs/backpack.mdl

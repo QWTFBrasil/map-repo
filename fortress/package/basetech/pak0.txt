@@ -1,3 +1,0 @@
-progs/backpack.mdl
-sound/doors/meduse.wav
-sound/ogre/ogwake.wav

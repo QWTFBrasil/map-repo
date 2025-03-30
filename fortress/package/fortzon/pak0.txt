@@ -1,2 +1,0 @@
-progs/invisibl.mdl
-progs/backpack.mdl

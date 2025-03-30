@@ -1,4 +1,0 @@
-sound/misc/runekey.wav
-sound/misc/medkey.wav
-progs/backpack.mdl
-sound/items/damage.wav

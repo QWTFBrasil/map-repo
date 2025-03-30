@@ -1,3 +1,0 @@
-progs/backpack.mdl
-progs/suit.mdl
-sound/misc/runekey.wav

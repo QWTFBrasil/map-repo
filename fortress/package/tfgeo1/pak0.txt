@@ -1,3 +1,0 @@
-sound/misc/secret.wav
-sound/ogre/ogwake.wav
-sound/items/inv1.wav

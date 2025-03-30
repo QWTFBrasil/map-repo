@@ -1,2 +1,0 @@
-pcgsflag.mdl
-TF_flag.mdl

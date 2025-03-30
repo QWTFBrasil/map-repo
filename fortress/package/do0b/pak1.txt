@@ -1,1 +1,0 @@
-sound/hknight/sight1.wav

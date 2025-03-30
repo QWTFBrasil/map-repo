@@ -1,2 +1,0 @@
-sound/weapons/lstart.wav
-progs/knight.mdl

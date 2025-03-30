@@ -1,5 +1,0 @@
-sound/items/armor1.wav
-progs/armor.mdl
-sound/weapons/pkup.wav
-sound/shambler/ssight.wav
-sound/ogre/ogwake.wav

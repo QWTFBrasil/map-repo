@@ -1,2 +1,0 @@
-sound/boss1/sight1.wav
-sound/demon/dpain1.wav

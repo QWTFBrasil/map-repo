@@ -1,2 +1,0 @@
-progs/TF_flag.mdl
-sound/misc/Flagcap.wav

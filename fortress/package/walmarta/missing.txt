@@ -1,3 +1,0 @@
-sound/ambience/walmart.wav
-sound/mart1.wav
-progs/flagcapture.mdl

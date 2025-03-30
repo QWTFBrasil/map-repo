@@ -1,2 +1,0 @@
-sound/AMBIENCE/thunder1.wav
-sound/pkup.wav

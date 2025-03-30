@@ -1,4 +1,0 @@
-progs/m_g_key.mdl
-progs/m_s_key.mdl
-progs/quaddama.mdl
-sound/items/damage.wav

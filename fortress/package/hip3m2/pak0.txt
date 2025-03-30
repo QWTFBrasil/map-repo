@@ -1,2 +1,0 @@
-sound/misc/null.wav
-sound/doors/drclos4.wav

@@ -1,3 +1,0 @@
-progs/backpack.mdl
-sound/doors/basetry.wav
-progs/invisibl.mdl

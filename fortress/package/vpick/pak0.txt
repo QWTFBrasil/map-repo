@@ -1,3 +1,0 @@
-progs/gib1.mdl
-progs/gib3.mdl
-progs/gib2.mdl

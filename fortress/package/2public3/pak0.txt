@@ -1,4 +1,0 @@
-sound/ogre/ogwake.wav
-sound/items/inv1.wav
-progs/invisibl.mdl
-progs/backpack.mdl

@@ -1,2 +1,0 @@
-dtree.mdl
-sound/putdown.wav

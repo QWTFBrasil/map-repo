@@ -1,2 +1,0 @@
-progs/armor.mdl
-progs/backpack.mdl

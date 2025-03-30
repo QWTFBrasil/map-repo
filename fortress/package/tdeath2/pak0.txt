@@ -1,4 +1,0 @@
-progs/backpack.mdl
-sound/soldier/sight1.wav
-progs/shambler.mdl
-sound/misc/medkey.wav

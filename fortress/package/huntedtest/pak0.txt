@@ -1,2 +1,0 @@
-sound/items/protect.wav
-progs/backpack.mdl

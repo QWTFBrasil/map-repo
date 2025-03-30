@@ -1,6 +1,0 @@
-sound/weapons/pkup.wav
-sound/items/r_item2.wav
-sound/items/armor1.wav
-progs/armor.mdl
-sound/items/inv2.wav
-sound/items/damage.wav

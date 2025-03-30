@@ -1,2 +1,0 @@
-sound/boss1/pain.wav
-progs/backpack.mdl

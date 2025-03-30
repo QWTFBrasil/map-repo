@@ -1,3 +1,0 @@
-sound/megarune/fightb.wav
-sound/misc/war.wav
-sound/misc/gscore.wav

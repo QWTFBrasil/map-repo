@@ -1,3 +1,0 @@
-sound/items/inv1.wav
-sound/misc/secret.wav
-progs/backpack.mdl

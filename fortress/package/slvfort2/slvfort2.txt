@@ -1,4 +1,0 @@
-***USE FOLDER NAMES AND EXTRACT INTO QUAKE FOLDER***
-
-clients allocate 16MB when using this map
-servers allocate 64MB when using this map

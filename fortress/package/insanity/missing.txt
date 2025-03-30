@@ -1,2 +1,0 @@
-sound/misc/sboom.wav
-sound/items/R_item1.wav

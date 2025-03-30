@@ -1,2 +1,0 @@
-sound/misc/pkup.wav
-sound/misc/health1.wav

@@ -1,3 +1,0 @@
-sound/doors/basetry.wav
-sound/shambler/ssight.wav
-sound/ogre/ogwake.wav
