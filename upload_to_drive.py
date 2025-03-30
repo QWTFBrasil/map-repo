@@ -170,21 +170,27 @@ def list_files_to_upload(folder_path):
     print(f"Total files to be uploaded: {file_count}")
 
 def main():
+    """Main function to sync a local folder to Google Drive."""
+    folder_path = os.environ.get('FOLDER_PATH')
+    drive_folder_id = os.environ.get('GOOGLE_DRIVE_FOLDER_ID')
+    
+    if not folder_path or not drive_folder_id:
+        print("Missing required environment variables: FOLDER_PATH or GOOGLE_DRIVE_FOLDER_ID")
+        sys.exit(1)
+    
     try:
-        # Autenticação (mantida para verificar se as credenciais estão funcionando)
+        # Print debug info
+        print("Environment variables available:")
+        print(f"FOLDER_PATH: {folder_path}")
+        print(f"GOOGLE_DRIVE_FOLDER_ID: {'Set' if drive_folder_id else 'Not set'}")
+        print(f"GOOGLE_APPLICATION_CREDENTIALS: {'Set' if os.environ.get('GOOGLE_APPLICATION_CREDENTIALS') else 'Not set'}")
+        print(f"GOOGLE_DRIVE_CREDENTIALS: {'Set' if os.environ.get('GOOGLE_DRIVE_CREDENTIALS') else 'Not set'}")
+        
         service = authenticate_google_drive()
-        if service is None:
-            raise ValueError("Failed to authenticate with Google Drive")
-        
-        folder_path = os.environ.get('FOLDER_PATH')
-        if not folder_path:
-            raise ValueError("FOLDER_PATH environment variable is not set")
-        
-        print(f"Folder path: {folder_path}")
-        
-        # Lista os arquivos que seriam enviados
-        # list_files_to_upload(folder_path)
-        
+        print(f"Authentication successful! Syncing folder {folder_path} to Google Drive folder ID: {drive_folder_id}")
+        list_files_to_upload(folder_path)
+        sync_folder_to_drive(service, folder_path, drive_folder_id)
+        print("Sync completed successfully!")        
         print("Listing completed successfully!")
     except Exception as e:
         print(f"Error during listing: {str(e)}")
