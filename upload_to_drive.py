@@ -39,7 +39,7 @@ def upload_file(service, file_path, parent_folder_id, mime_type=None):
             'name': os.path.basename(file_path),
             'parents': [parent_folder_id]
         }
-        media = googleapiclient.http.MediaFileUpload(file_path, resumable=True)
+        media = MediaFileUpload(file_path, resumable=True)
         uploaded_file = drive_service.files().create(
             body=file_metadata,
             media_body=media,
