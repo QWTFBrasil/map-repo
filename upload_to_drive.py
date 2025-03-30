@@ -35,46 +35,31 @@ def upload_file(service, file_path, parent_folder_id, mime_type=None):
 
     # Check if file already exists in the folder
     query = f"name='{file_name}' and '{parent_folder_id}' in parents and trashed=false"
-    results = service.files().list(q=query, fields="files(id, name)").execute()
-    existing_files = results.get('files', [])
-
-    file_metadata = {
-        'name': file_name,
-        'parents': [parent_folder_id]
-    }
-    media = MediaFileUpload(file_path, mimetype=mime_type, resumable=True)
-
     try:
+        results = service.files().list(q=query, fields="files(id, name)").execute()
+        existing_files = results.get('files', [])
+
         if existing_files:
+            # File already exists, skip it
             file_id = existing_files[0]['id']
-            try:
-                file = service.files().update(
-                    fileId=file_id,
-                    body=file_metadata,
-                    media_body=media,
-                    fields='id'
-                ).execute()
-                print(f"Updated file: {file_name}, ID: {file.get('id')}")
-            except HttpError as error:
-                if error.resp.status == 404:
-                    print(f"File not found, creating new file: {file_name}")
-                    file = service.files().create(
-                        body=file_metadata,
-                        media_body=media,
-                        fields='id'
-                    ).execute()
-                    print(f"Created new file: {file_name}, ID: {file.get('id')}")
-                else:
-                    raise
+            print(f"File already exists: {file_name}, ID: {file_id} - Skipping upload")
+            return file_id
         else:
+            # File doesn't exist, create new file
+            file_metadata = {
+                'name': file_name,
+                'parents': [parent_folder_id]
+            }
+            media = MediaFileUpload(file_path, mimetype=mime_type, resumable=True)
+            
             file = service.files().create(
                 body=file_metadata,
                 media_body=media,
                 fields='id'
             ).execute()
             print(f"Uploaded new file: {file_name}, ID: {file.get('id')}")
-
-        return file.get('id')
+            return file.get('id')
+            
     except HttpError as error:
         print(f"An error occurred while uploading {file_name}: {error}")
         print(f"Error details: {error.content.decode()}")
